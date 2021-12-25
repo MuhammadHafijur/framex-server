@@ -84,7 +84,7 @@ async function run() {
 
 
     }
-    finally () {
+    finally {
         // await client.close();
     }
 }
@@ -95,6 +95,6 @@ app.get('/', (req, res) => {
     res.send('Server is running');
 });
 
-app.listen(port, () => [
+app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
-]);
+});
