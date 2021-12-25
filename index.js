@@ -53,25 +53,30 @@ async function run() {
             const result = await productsCollection.deleteOne({ _id: ObjectId(id) });
         });
 
-        app.post('/api/orders', async (req, res) => { 
+        app.post('/api/order', async (req, res) => { 
             const order = req.body;
             const result = await ordersCollection.insertOne(order);
             res.json(result);
         });       
 
-        app.get('/api/orders/:email', async (req, res) => {
+        app.get('/api/orders', async (req, res) => {
+            const orders = await ordersCollection.find().toArray();
+            res.json(orders);
+        })
+
+        app.get('/api/order/:email', async (req, res) => {
             const email = req.params.email;
             const orders = await ordersCollection.find({ email }).toArray();
             res.json(orders);
         });
 
-        app.delete('/api/orders/:id', async (req, res) => {
+        app.delete('/api/order/:id', async (req, res) => {
             const id = req.params.id;
             const result = await orderCollection.deleteOne({ _id: ObjectId(id) });
             res.json(result);
         });
 
-        app.put('/api/orders/:id', async (req, res) => {
+        app.put('/api/order/:id', async (req, res) => {
             const id = req.params.id;
             const result = await orderCollection.updateOne({ _id: ObjectId(id) }, { $set: { shipped: true } });
             res.json(result);
