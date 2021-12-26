@@ -28,8 +28,8 @@ async function run() {
 
         app.post('/login', async (req, res) => {
             const { email, password } = req.body;
-            const result = await usersCollection.findOne({ email, password });
-            res.json(result);
+            const {name, email} = await usersCollection.findOne({ email, password });
+            res.json({name, email, acknowledged: true});
         });
 
         app.post('/api/product', async (req, res) => {
